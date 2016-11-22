@@ -2,8 +2,8 @@
 #include <cstdio>
 #include "conio2.h"
 #include "Keyboard.h"
-
-
+#include "Cursor.h"
+extern Cursor cursor;
 PictureEditor::PictureEditor()
 {
 	this->loadModule();
@@ -19,6 +19,8 @@ PictureEditor::~PictureEditor()
 void PictureEditor::DrawInterface()
 {
 	this->putInstruction(right);
+	//cursor.SetDefaultPosition();
+
 }
 
 bool PictureEditor::GetProgramState()
@@ -28,7 +30,27 @@ bool PictureEditor::GetProgramState()
 
 void PictureEditor::Tasker()
 {
-	Keyboard::getKey();
+	Keyboard::Key key = Keyboard::getKey();
+	switch (key)
+	{
+	case Keyboard::upArrow:
+		cursor.Move(0, -1);
+		break;
+	case Keyboard::downArrow:
+		cursor.Move(0, 1);
+		break;
+	case Keyboard::leftArrow:
+		cursor.Move(-1, 0);
+		break;
+	case Keyboard::rightArrow:
+		cursor.Move(1, 0);
+	case Keyboard::space: break;
+	case Keyboard::backspace: break;
+	case Keyboard::enter: break;
+	case Keyboard::ESC: break;
+	case Keyboard::any: break;
+	default: break;
+	}
 }
 
 // ReSharper disable once CppMemberFunctionMayBeStatic
@@ -60,7 +82,7 @@ void PictureEditor::putInstruction(InstructionPosition instructionPosition)
 	}
 
 	gotoxy(x,y);
-	cputs("MENU:");
+	cputs("Instrukcja:");
 	gotoxy(x, ++y);
 	cputs("Strzalki - poruszanie");
 	gotoxy(x, ++y);
@@ -91,6 +113,6 @@ void PictureEditor::putInstruction(InstructionPosition instructionPosition)
 	cputs("p - wklej fragment ze schowka");
 	gotoxy(x, ++y);
 	cputs("f - wypelnianie");
-
+	cursor.SetPosition();
 	
 }

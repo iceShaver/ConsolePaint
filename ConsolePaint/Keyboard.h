@@ -2,9 +2,9 @@
 class Keyboard
 {
 public:
-	enum Keys{leftArrow, rightArrow, upArrow, downArrow, space, backspace, enter, ESC, any};
+	enum Key{leftArrow, rightArrow, upArrow, downArrow, space, backspace, enter, ESC, any};
 	Keyboard();
 	~Keyboard();
-	static Keys getKey();
+	static Key getKey();
 };
 

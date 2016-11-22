@@ -8,10 +8,11 @@
 stale, na przyklad po to, aby wyeliminowac z programu
 wartosci numeryczne umieszczajac w ich miejsce
 dobrze dobrane identyfikatory */
-
+Cursor cursor;
 int main()
 {
 	PictureEditor pictureEditor;
+
 	do
 	{
 		pictureEditor.DrawInterface();

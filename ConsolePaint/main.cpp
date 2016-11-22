@@ -11,6 +11,7 @@ dobrze dobrane identyfikatory */
 
 int main()
 {
+	
 	PictureEditor pictureEditor;
 	do
 	{
@@ -19,8 +20,5 @@ int main()
 		
 	}
 	while (pictureEditor.GetProgramState());
-
-
-
 	return 0;
 }

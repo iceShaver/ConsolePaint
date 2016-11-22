@@ -3,15 +3,20 @@
 #include "conio2.h"
 #include "Keyboard.h"
 #include "Cursor.h"
+#include "Workspace.h"
+#include "File.h"
 
+
+const int PictureEditor::windowWidth = 120;
+const int PictureEditor::windowHeight = 30;
 PictureEditor::PictureEditor()
 {
 	this->loadModule();
 	this->programRunning = true;
 	this->instructionPosition = right;
+	
 
 }
-
 
 PictureEditor::~PictureEditor()
 {
@@ -19,8 +24,12 @@ PictureEditor::~PictureEditor()
 
 void PictureEditor::DrawInterface()
 {
-	this->putInstruction();
-	//cursor.SetDefaultPosition();
+
+	this->drawInstruction();
+
+
+
+	
 
 }
 
@@ -35,33 +44,39 @@ void PictureEditor::Tasker()
 	switch (key)
 	{
 	case Keyboard::upArrow:
-		Cursor::Move(0, -1);
+		Cursor::Move(Cursor::up);
 		break;
 	case Keyboard::downArrow:
-		Cursor::Move(0, 1);
+		Cursor::Move(Cursor::down);
 		break;
 	case Keyboard::leftArrow:
-		Cursor::Move(-1, 0);
+		Cursor::Move(Cursor::left);
 		break;
 	case Keyboard::rightArrow:
-		Cursor::Move(1, 0);
+		Cursor::Move(Cursor::right);
 	case Keyboard::space: break;
 	case Keyboard::backspace: break;
 	case Keyboard::enter: break;
-	case Keyboard::ESC: break;
+	case Keyboard::n:
+	{
+		Workspace workspace = File::CreateNewFile();
+		workspace.draw();
+		break;
+	}
+	case Keyboard::ESC:
+		this->programRunning = false;
+		break;
 	case Keyboard::any: break;
 	default: break;
 	}
 }
 
-// ReSharper disable once CppMemberFunctionMayBeStatic
-// ReSharper disable once CppMemberFunctionMayBeConst
 void PictureEditor::loadModule()
 {
 
 }
 
-void PictureEditor::putInstruction()
+void PictureEditor::drawInstruction()
 {
 	int x, y=1;
 	switch (this->instructionPosition)
@@ -121,4 +136,9 @@ void PictureEditor::putInstruction()
 	cputs("f - wypelnianie");
 	Cursor::SetPosition();
 	
+}
+
+void PictureEditor::drawWorkspace()
+{
+	//Workspace workspace;
 }

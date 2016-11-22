@@ -3,6 +3,8 @@
 class PictureEditor
 {
 public:
+	static const int windowWidth;
+	static const int windowHeight;
 	PictureEditor();
 	~PictureEditor();
 	enum InstructionPosition {left,right};
@@ -12,9 +14,12 @@ public:
 private:
 	InstructionPosition instructionPosition;
 	bool programRunning;
+
 	void loadModule();
-	void putInstruction();
+	void drawInstruction();
 	void printBoard();
+	void drawWorkspace();
+	
 	
 };
 

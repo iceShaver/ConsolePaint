@@ -3,11 +3,12 @@
 #include "conio2.h"
 #include "Keyboard.h"
 #include "Cursor.h"
-extern Cursor cursor;
+
 PictureEditor::PictureEditor()
 {
 	this->loadModule();
 	this->programRunning = true;
+	this->instructionPosition = right;
 
 }
 
@@ -18,7 +19,7 @@ PictureEditor::~PictureEditor()
 
 void PictureEditor::DrawInterface()
 {
-	this->putInstruction(right);
+	this->putInstruction();
 	//cursor.SetDefaultPosition();
 
 }
@@ -34,16 +35,16 @@ void PictureEditor::Tasker()
 	switch (key)
 	{
 	case Keyboard::upArrow:
-		cursor.Move(0, -1);
+		Cursor::Move(0, -1);
 		break;
 	case Keyboard::downArrow:
-		cursor.Move(0, 1);
+		Cursor::Move(0, 1);
 		break;
 	case Keyboard::leftArrow:
-		cursor.Move(-1, 0);
+		Cursor::Move(-1, 0);
 		break;
 	case Keyboard::rightArrow:
-		cursor.Move(1, 0);
+		Cursor::Move(1, 0);
 	case Keyboard::space: break;
 	case Keyboard::backspace: break;
 	case Keyboard::enter: break;
@@ -60,13 +61,18 @@ void PictureEditor::loadModule()
 
 }
 
-void PictureEditor::putInstruction(InstructionPosition instructionPosition)
+void PictureEditor::putInstruction()
 {
 	int x, y=1;
-	switch (instructionPosition)
+	switch (this->instructionPosition)
 	{
 	case left:
 		x = 1;
+		for (int i = 0; i <= 28; ++i)
+		{
+			gotoxy(x + 44, y + i);
+			cputs("|");
+		}
 		break;
 	case right:
 		x = 61;
@@ -113,6 +119,6 @@ void PictureEditor::putInstruction(InstructionPosition instructionPosition)
 	cputs("p - wklej fragment ze schowka");
 	gotoxy(x, ++y);
 	cputs("f - wypelnianie");
-	cursor.SetPosition();
+	Cursor::SetPosition();
 	
 }

@@ -1,14 +1,20 @@
 #pragma once
+
+
 class Cursor
 {
 public:
 	Cursor();
+
 	~Cursor();
-	void MoveTo(int, int);
-	void Move(int, int);
-	void SetPosition();
+	static void MoveTo(int, int);
+	static void Move(int, int);
+	static void SetPosition();
+
 private:
-	int positionX;
-	int positionY;
+	static int positionX;
+	static int positionY;
+
 };
+
 

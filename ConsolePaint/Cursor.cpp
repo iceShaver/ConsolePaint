@@ -1,11 +1,12 @@
 #include "Cursor.h"
 #include "conio2.h"
 
+int Cursor::positionX = 20;
+int Cursor::positionY = 20;
 
 Cursor::Cursor()
 {
-	this->positionX = 20;
-	this->positionY = 20;
+
 }
 
 
@@ -20,12 +21,13 @@ void Cursor::MoveTo(int positionX, int positionY)
 
 void Cursor::Move(int positionXOffset, int positionYOffset)
 {
-	this->positionX += positionXOffset;
-	this->positionY += positionYOffset;
-	gotoxy(this->positionX, this->positionY);
+	positionX += positionXOffset;
+	positionY += positionYOffset;
+	gotoxy(positionX, positionY);
 }
 
 void Cursor::SetPosition()
 {
-	gotoxy(this->positionX, this->positionY);
+	gotoxy(positionX, positionY);
 }
+

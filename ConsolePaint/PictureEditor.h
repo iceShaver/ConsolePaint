@@ -10,9 +10,10 @@ public:
 	bool GetProgramState();
 	void Tasker();
 private:
+	InstructionPosition instructionPosition;
 	bool programRunning;
 	void loadModule();
-	void putInstruction(InstructionPosition);
+	void putInstruction();
 	void printBoard();
 	
 };

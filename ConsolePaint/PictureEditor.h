@@ -17,7 +17,6 @@ private:
 
 	void loadModule();
 	void drawInstruction(PictureEditor::Position position);
-	void printBoard();
 	
 	
 };

@@ -13,7 +13,6 @@ PictureEditor::PictureEditor()
 {
 	this->loadModule();
 	this->programRunning = true;
-	this->instructionPosition = right;
 	
 
 }
@@ -25,7 +24,7 @@ PictureEditor::~PictureEditor()
 void PictureEditor::DrawInterface()
 {
 
-	this->drawInstruction();
+	this->drawInstruction(right);
 
 
 
@@ -59,7 +58,7 @@ void PictureEditor::Tasker()
 	case Keyboard::enter: break;
 	case Keyboard::n:
 	{
-		Workspace workspace = File::CreateNewFile();
+		Workspace workspace(File::CreateNewFile(), left);
 		workspace.draw();
 		break;
 	}
@@ -76,10 +75,10 @@ void PictureEditor::loadModule()
 
 }
 
-void PictureEditor::drawInstruction()
+void PictureEditor::drawInstruction(PictureEditor::Position position)
 {
 	int x, y=1;
-	switch (this->instructionPosition)
+	switch (position)
 	{
 	case left:
 		x = 1;
@@ -138,7 +137,4 @@ void PictureEditor::drawInstruction()
 	
 }
 
-void PictureEditor::drawWorkspace()
-{
-	//Workspace workspace;
-}
+

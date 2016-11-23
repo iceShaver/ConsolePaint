@@ -1,11 +1,12 @@
 #include "Workspace.h"
 #include "conio2.h"
+#include "PictureEditor.h"
 
 int Workspace::width = 60;
 int Workspace::height = 28;
 
 
-Workspace::Workspace(char* name)
+Workspace::Workspace(char* name, PictureEditor::Position)
 {
 	this->name = name;
 }

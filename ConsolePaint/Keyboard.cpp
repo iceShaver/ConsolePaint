@@ -99,17 +99,24 @@ char* Keyboard::input(int maxLength)
 {
 	char character;
 	int position = wherex();
-	char* fileName = new char[maxLength];
+	char* fileName = new char[maxLength+1];
 	int i = 0;
 	while (true)
 	{
-		character = Keyboard::getChar();
-		fileName[i] = character;
-		if (character == '\0')
-			break;
-		putch(character);
+		if (i >= maxLength)
+		{
+		
+		}
+		else {
+			character = Keyboard::getChar();
+			fileName[i] = character;
+			if (character == '\0')
+				break;
+			putch(character);
 
-		i++;
+			i++;
+		}
+
 	}
 	return fileName;
 }

@@ -1,9 +1,11 @@
 #pragma once
+#include "PictureEditor.h"
+
 class Workspace
 {
 public:
 	char* name;
-	Workspace(char*);
+	Workspace(char*, PictureEditor::Position);
 	~Workspace();
 	void draw();
 	static int width;

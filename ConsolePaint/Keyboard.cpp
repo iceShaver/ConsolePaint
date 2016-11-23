@@ -83,6 +83,8 @@ char Keyboard::getChar()
 		character = getch();
 		if (character == 13)
 			return '\0';
+		if (character == 8)
+			return 8;
 		if (character == 0)
 			while (kbhit())
 				getch();
@@ -99,22 +101,34 @@ char* Keyboard::input(int maxLength)
 {
 	char character;
 	int position = wherex();
-	char* fileName = new char[maxLength+1];
+	char* fileName = new char[maxLength + 1];
 	int i = 0;
 	while (true)
 	{
-		if (i >= maxLength)
+		character = Keyboard::getChar();
+		if (character == 8)
 		{
-		
+			if (i > 0) {
+				gotoxy(wherex() - 1, wherey());
+				putch(0);
+				gotoxy(wherex() - 1, wherey());
+				i--;
+			}
+			continue;
 		}
-		else {
-			character = Keyboard::getChar();
+		if (i < maxLength)
+		{
 			fileName[i] = character;
 			if (character == '\0')
 				break;
 			putch(character);
-
 			i++;
+		}else
+		{
+			fileName[i] = character;
+			if (character == '\0')
+				break;
+			
 		}
 
 	}

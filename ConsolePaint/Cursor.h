@@ -15,6 +15,7 @@ public:
 	Cursor(int, int, int, int);
 
 	~Cursor();
+	static void Toggle();
 	static void MoveTo(int, int);
 	static void UpdatePosition();
 	static void Move(Direction);
@@ -30,6 +31,7 @@ private:
 	static int minY;
 	static int maxX;
 	static int maxY;
+	static bool isDrawing;
 
 };
 

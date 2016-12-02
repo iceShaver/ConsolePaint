@@ -8,8 +8,8 @@
 
 int PictureEditor::windowHeight;
 int PictureEditor::windowWidth;
-
-
+int PictureEditor::instructionWidth;
+int PictureEditor::instructionX0Position;
 void PictureEditor::Tasker()
 {
 	while (programRunning) {
@@ -28,7 +28,9 @@ void PictureEditor::Tasker()
 		case Keyboard::rightArrow:
 			Cursor::Move(Cursor::right);
 			break;
-		case Keyboard::space: break;
+		case Keyboard::space: 
+			Cursor::Toggle();
+			break;
 		case Keyboard::backspace: break;
 		case Keyboard::enter: break;
 		case Keyboard::n:
@@ -45,14 +47,12 @@ void PictureEditor::Tasker()
 			programRunning = false;
 			break;
 		case Keyboard::any:
-
 			break;
 		case Keyboard::n1:
 			Cursor::SetColor(Cursor::black);
 			break;
 		case Keyboard::n2:
 			Cursor::SetColor(Cursor::blue);
-
 			break;
 		case Keyboard::n3:
 			Cursor::SetColor(Cursor::green);
@@ -116,9 +116,11 @@ PictureEditor::PictureEditor()
 	{
 	case instructionLeft:
 		workpaceX0Position = instructionWidth + 2;
+		instructionX0Position = 1;
 		break;
 	case instructionRight:
 		workpaceX0Position = 1;
+		instructionX0Position = windowWidth - instructionWidth;
 		break;
 	default:
 		workpaceX0Position = instructionWidth + 1;

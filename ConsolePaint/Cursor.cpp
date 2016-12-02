@@ -14,6 +14,7 @@ int Cursor::minY;
 int Cursor::maxX;
 int Cursor::maxY;
 Cursor::Color Cursor::color;
+bool Cursor::isDrawing;
 
 
 Cursor::Cursor(int minX, int minY, int maxX, int maxY)
@@ -26,12 +27,25 @@ Cursor::Cursor(int minX, int minY, int maxX, int maxY)
 	positionY = minY;
 	workspacePositionX = 0;
 	workspacePositionY = 0;
+	isDrawing = false;
 
 }
 
 
 Cursor::~Cursor()
 {
+}
+
+void Cursor::Toggle()
+{
+	if (isDrawing)
+		isDrawing = false;
+	else
+	{
+		isDrawing = true;
+		SetPosition();
+	}
+
 }
 
 void Cursor::MoveTo(int positionX, int positionY)
@@ -43,9 +57,9 @@ void Cursor::UpdatePosition()
 {
 	workspacePositionX = wherex() - minX;
 	workspacePositionY = wherey() - minY;
-	gotoxy(1, PictureEditor::windowHeight);
+	gotoxy(PictureEditor::instructionX0Position, PictureEditor::windowHeight);
 	cputs("       ");
-	gotoxy(1, PictureEditor::windowHeight);
+	gotoxy(PictureEditor::instructionX0Position, PictureEditor::windowHeight);
 
 	putch('(');
 	char str[3];
@@ -76,21 +90,27 @@ void Cursor::Move(Direction direction)
 void Cursor::SetPosition()
 {
 	gotoxy(positionX, positionY);
-	textcolor(color);
-	textbackground(color);
-	putch(219);
-	SetDefault();
-	
+	if (isDrawing)
+	{
+		textcolor(color);
+		textbackground(color);
+		putch(219);
+		SetDefault();
+	}
+
 }
 
 void Cursor::SetColor(Color Cursorcolor)
 {
 	color = Cursorcolor;
-	gotoxy(positionX, positionY);
-	textcolor(color);
-	textbackground(color);
-	putch(219);
-	SetDefault();
+	if (isDrawing)
+	{
+		gotoxy(positionX, positionY);
+		textcolor(color);
+		textbackground(color);
+		putch(219);
+		SetDefault();
+	}
 }
 
 void Cursor::SetDefault()

@@ -61,6 +61,7 @@ Workspace::Workspace(int x0, char* name, int width, int height)
 	while (wherex() < maxX)
 		putch('_');
 	Cursor cursor(minX, minY, maxX, maxY);
+	
 
 }
 

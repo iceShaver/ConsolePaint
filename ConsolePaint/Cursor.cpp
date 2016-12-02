@@ -28,6 +28,8 @@ Cursor::Cursor(int minX, int minY, int maxX, int maxY)
 	workspacePositionX = 0;
 	workspacePositionY = 0;
 	isDrawing = false;
+	SetPosition();
+	UpdatePosition();
 
 }
 

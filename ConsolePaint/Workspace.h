@@ -3,12 +3,13 @@
 
 class Workspace
 {
+private:
+	int minX, minY, maxX, maxY;
 public:
 	char* name;
-	Workspace(char*, PictureEditor::Position);
+	Workspace(int, char*, int, int);
 	~Workspace();
 	void draw();
-	static int width;
-	static int height;
+
 };
 

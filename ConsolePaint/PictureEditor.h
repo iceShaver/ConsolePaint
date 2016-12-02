@@ -3,20 +3,20 @@
 class PictureEditor
 {
 public:
-	enum Position {left, right};
-	static const int windowWidth;
-	static const int windowHeight;
-	PictureEditor();
-	~PictureEditor();
+	enum Position {instructionLeft, instructionRight};
 
-	void DrawInterface();
-	bool GetProgramState();
+	PictureEditor();
+	void DrawInstruction();
 	void Tasker();
 private:
+	int windowWidth;
+	int windowHeight;
+	int instructionWidth;
+	int workpaceX0Position;
+	Position layout;
 	bool programRunning;
 
-	void loadModule();
-	void drawInstruction(PictureEditor::Position position);
+	//void loadModule();
 	
 	
 };

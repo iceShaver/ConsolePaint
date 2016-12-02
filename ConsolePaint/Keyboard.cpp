@@ -1,5 +1,6 @@
 #include "Keyboard.h"
 #include "conio2.h"
+#include <cstdlib>
 
 
 Keyboard::Keyboard()
@@ -37,6 +38,27 @@ Keyboard::Key Keyboard::getKey()
 		return n;
 	if (key == 0x73 || key == 0x53)
 		return s;
+	if (key == 0x31)
+		return n1;
+	if (key == 0x32)
+		return n2;
+	if (key == 0x33)
+		return n3;
+	if (key == 0x34)
+		return n4;
+	if (key == 0x35)
+		return n5;
+	if (key == 0x36)
+		return n6;
+	if (key == 0x37)
+		return n7;
+	if (key == 0x38)
+		return n8;
+	if (key == 0x39)
+		return n9;
+	if (key == 0x30)
+		return n0;
+
 	switch (key)
 	{
 	case 8:
@@ -97,11 +119,16 @@ char Keyboard::getChar()
 
 }
 
-char* Keyboard::input(int maxLength)
+
+char* Keyboard::Input(char* command)
 {
+	clrscr();
+	int maxLength = 32;
 	char character;
 	int position = wherex();
 	char* fileName = new char[maxLength + 1];
+	gotoxy(1, 1);
+	cputs(command);
 	int i = 0;
 	while (true)
 	{
@@ -133,4 +160,10 @@ char* Keyboard::input(int maxLength)
 
 	}
 	return fileName;
+}
+
+int Keyboard::InputNumber(char* command)
+{
+	char *str = Input(command);
+	return atoi(str);
 }

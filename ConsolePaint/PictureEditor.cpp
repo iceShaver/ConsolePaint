@@ -7,40 +7,13 @@
 #include "File.h"
 
 
-const int PictureEditor::windowWidth = 120;
-const int PictureEditor::windowHeight = 30;
-PictureEditor::PictureEditor()
-{
-	this->loadModule();
-	this->programRunning = true;
-	
-
-}
-
-PictureEditor::~PictureEditor()
-{
-}
-
-void PictureEditor::DrawInterface()
-{
-
-	this->drawInstruction(right);
 
 
-
-	
-
-}
-
-bool PictureEditor::GetProgramState()
-{
-	return this->programRunning;
-}
 
 void PictureEditor::Tasker()
 {
-	Keyboard::Key key = Keyboard::getKey();
-	switch (key)
+while(programRunning)
+	switch (Keyboard::getKey())
 	{
 	case Keyboard::upArrow:
 		Cursor::Move(Cursor::up);
@@ -53,47 +26,139 @@ void PictureEditor::Tasker()
 		break;
 	case Keyboard::rightArrow:
 		Cursor::Move(Cursor::right);
+		break;
 	case Keyboard::space: break;
 	case Keyboard::backspace: break;
 	case Keyboard::enter: break;
 	case Keyboard::n:
 	{
-		Workspace workspace(File::CreateNewFile(), left);
-		workspace.draw();
+		Workspace workspace(workpaceX0Position,
+			Keyboard::Input("Podaj nazwe: "),
+			Keyboard::InputNumber("Podaj szerokosc: "),
+			Keyboard::InputNumber("Podaj wysokosc: "));
+		DrawInstruction();
+		Cursor::SetPosition();
 		break;
 	}
 	case Keyboard::ESC:
-		this->programRunning = false;
+		PictureEditor::programRunning = false;
 		break;
-	case Keyboard::any: break;
-	default: break;
+	case Keyboard::any: 
+		
+		break;
+	case Keyboard::n1:
+		textcolor(BLACK);
+		textbackground(BLACK);
+		break;
+	case Keyboard::n2:
+		textcolor(BLUE);
+		textbackground(BLUE);
+		break;
+	case Keyboard::n3:
+		textcolor(GREEN);
+		textbackground(GREEN);
+		break;
+	case Keyboard::n4:
+		textcolor(CYAN);
+		textbackground(CYAN);
+		break;
+	case Keyboard::n5:
+		textcolor(RED);
+		textbackground(RED);
+		break;
+	case Keyboard::n6:
+		textcolor(MAGENTA);
+		textbackground(MAGENTA);
+		break;
+	case Keyboard::n7:
+		textcolor(BROWN);
+		textbackground(BROWN);
+		break;
+	case Keyboard::n8:
+		textcolor(LIGHTGRAY);
+		textbackground(LIGHTGRAY);
+		break;
+	case Keyboard::n9:
+		textcolor(LIGHTBLUE);
+		textbackground(LIGHTBLUE);
+		break;
+	case Keyboard::n0:
+		textcolor(LIGHTGREEN);
+		textbackground(LIGHTGREEN);
+		break;
+	case Keyboard::q:
+		textcolor(LIGHTCYAN);
+		textbackground(LIGHTCYAN);
+		break;
+	case Keyboard::w:
+		textcolor(LIGHTRED);
+		textbackground(LIGHTRED);
+		break;
+	case Keyboard::e:
+		textcolor(LIGHTMAGENTA);
+		textbackground(LIGHTMAGENTA);
+		break;
+	case Keyboard::r:
+		textcolor(YELLOW);
+		textbackground(YELLOW);
+		break;
+	case Keyboard::t:
+		textcolor(WHITE);
+		textbackground(WHITE);
+		break;
+
+
+	default:
+		
+		break;
 	}
 }
 
-void PictureEditor::loadModule()
-{
 
+PictureEditor::PictureEditor()
+{
+	//textmode(C4350);
+	windowWidth = 80;
+	windowHeight = 30;
+	instructionWidth = 44;
+	layout = instructionLeft;
+	programRunning = true;
+	switch (layout)
+	{
+	case instructionLeft:
+		workpaceX0Position = instructionWidth + 2;
+		break;
+	case instructionRight:
+		workpaceX0Position = 1;
+		break;
+	default:
+		workpaceX0Position = instructionWidth + 1;
+		break;
+	}
+	DrawInstruction();
+	Tasker();
 }
 
-void PictureEditor::drawInstruction(PictureEditor::Position position)
+void PictureEditor::DrawInstruction()
 {
-	int x, y=1;
-	switch (position)
+
+	int x, y = 1;
+	switch (layout)
 	{
-	case left:
+	case instructionLeft:
 		x = 1;
-		for (int i = 0; i <= 28; ++i)
+		for (int i = 0; i < windowHeight; ++i)
 		{
-			gotoxy(x + 44, y + i);
-			cputs("|");
+			gotoxy(x + instructionWidth, y + i);
+			putch(186);
 		}
 		break;
-	case right:
-		x = 61;
+	case instructionRight:
+		x = instructionWidth + 1;
 		for (int i = 0; i <= 28; ++i)
 		{
-			gotoxy(x - 1, y + i);
-			cputs("|");
+			gotoxy(x, y + i);
+			cputs("\186");
 		}
 		break;
 	default:
@@ -101,7 +166,7 @@ void PictureEditor::drawInstruction(PictureEditor::Position position)
 		break;
 	}
 
-	gotoxy(x,y);
+	gotoxy(x, y);
 	cputs("Instrukcja:");
 	gotoxy(x, ++y);
 	cputs("Strzalki - poruszanie");
@@ -133,8 +198,8 @@ void PictureEditor::drawInstruction(PictureEditor::Position position)
 	cputs("p - wklej fragment ze schowka");
 	gotoxy(x, ++y);
 	cputs("f - wypelnianie");
-	Cursor::SetPosition();
-	
+	//Cursor::SetPosition();
+
 }
 
 

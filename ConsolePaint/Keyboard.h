@@ -2,6 +2,7 @@
 class Keyboard
 {
 public:
+	enum InputType{string, number};
 	enum Key {
 		leftArrow, rightArrow, upArrow, downArrow,
 		ctrlLeftArrow, ctrlRightArrow, ctrlUpArrow, ctrlDownArrow,
@@ -14,6 +15,7 @@ public:
 	~Keyboard();
 	static Key getKey();
 	static char getChar();
-	static char* input(int);
+	static char* Input(char*);
+	static int InputNumber(char*);
 };
 

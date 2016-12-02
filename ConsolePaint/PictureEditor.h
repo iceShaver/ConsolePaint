@@ -4,13 +4,13 @@ class PictureEditor
 {
 public:
 	enum Position {instructionLeft, instructionRight};
-
+	static int windowWidth;
+	static int windowHeight;
 	PictureEditor();
 	void DrawInstruction();
 	void Tasker();
 private:
-	int windowWidth;
-	int windowHeight;
+
 	int instructionWidth;
 	int workpaceX0Position;
 	Position layout;

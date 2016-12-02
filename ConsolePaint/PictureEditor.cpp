@@ -6,111 +6,99 @@
 #include "Workspace.h"
 #include "File.h"
 
-
-
+int PictureEditor::windowHeight;
+int PictureEditor::windowWidth;
 
 
 void PictureEditor::Tasker()
 {
-while(programRunning)
-	switch (Keyboard::getKey())
-	{
-	case Keyboard::upArrow:
-		Cursor::Move(Cursor::up);
-		break;
-	case Keyboard::downArrow:
-		Cursor::Move(Cursor::down);
-		break;
-	case Keyboard::leftArrow:
-		Cursor::Move(Cursor::left);
-		break;
-	case Keyboard::rightArrow:
-		Cursor::Move(Cursor::right);
-		break;
-	case Keyboard::space: break;
-	case Keyboard::backspace: break;
-	case Keyboard::enter: break;
-	case Keyboard::n:
-	{
-		Workspace workspace(workpaceX0Position,
-			Keyboard::Input("Podaj nazwe: "),
-			Keyboard::InputNumber("Podaj szerokosc: "),
-			Keyboard::InputNumber("Podaj wysokosc: "));
-		DrawInstruction();
-		Cursor::SetPosition();
-		break;
-	}
-	case Keyboard::ESC:
-		PictureEditor::programRunning = false;
-		break;
-	case Keyboard::any: 
-		
-		break;
-	case Keyboard::n1:
-		textcolor(BLACK);
-		textbackground(BLACK);
-		break;
-	case Keyboard::n2:
-		textcolor(BLUE);
-		textbackground(BLUE);
-		break;
-	case Keyboard::n3:
-		textcolor(GREEN);
-		textbackground(GREEN);
-		break;
-	case Keyboard::n4:
-		textcolor(CYAN);
-		textbackground(CYAN);
-		break;
-	case Keyboard::n5:
-		textcolor(RED);
-		textbackground(RED);
-		break;
-	case Keyboard::n6:
-		textcolor(MAGENTA);
-		textbackground(MAGENTA);
-		break;
-	case Keyboard::n7:
-		textcolor(BROWN);
-		textbackground(BROWN);
-		break;
-	case Keyboard::n8:
-		textcolor(LIGHTGRAY);
-		textbackground(LIGHTGRAY);
-		break;
-	case Keyboard::n9:
-		textcolor(LIGHTBLUE);
-		textbackground(LIGHTBLUE);
-		break;
-	case Keyboard::n0:
-		textcolor(LIGHTGREEN);
-		textbackground(LIGHTGREEN);
-		break;
-	case Keyboard::q:
-		textcolor(LIGHTCYAN);
-		textbackground(LIGHTCYAN);
-		break;
-	case Keyboard::w:
-		textcolor(LIGHTRED);
-		textbackground(LIGHTRED);
-		break;
-	case Keyboard::e:
-		textcolor(LIGHTMAGENTA);
-		textbackground(LIGHTMAGENTA);
-		break;
-	case Keyboard::r:
-		textcolor(YELLOW);
-		textbackground(YELLOW);
-		break;
-	case Keyboard::t:
-		textcolor(WHITE);
-		textbackground(WHITE);
-		break;
+	while (programRunning) {
+		//Cursor::SetDefault();
+		switch (Keyboard::getKey())
+		{
+		case Keyboard::upArrow:
+			Cursor::Move(Cursor::up);
+			break;
+		case Keyboard::downArrow:
+			Cursor::Move(Cursor::down);
+			break;
+		case Keyboard::leftArrow:
+			Cursor::Move(Cursor::left);
+			break;
+		case Keyboard::rightArrow:
+			Cursor::Move(Cursor::right);
+			break;
+		case Keyboard::space: break;
+		case Keyboard::backspace: break;
+		case Keyboard::enter: break;
+		case Keyboard::n:
+		{
+			Workspace workspace(workpaceX0Position,
+				Keyboard::Input("Podaj nazwe: "),
+				Keyboard::InputNumber("Podaj szerokosc: "),
+				Keyboard::InputNumber("Podaj wysokosc: "));
+			DrawInstruction();
+			Cursor::SetPosition();
+			break;
+		}
+		case Keyboard::ESC:
+			programRunning = false;
+			break;
+		case Keyboard::any:
+
+			break;
+		case Keyboard::n1:
+			Cursor::SetColor(Cursor::black);
+			break;
+		case Keyboard::n2:
+			Cursor::SetColor(Cursor::blue);
+
+			break;
+		case Keyboard::n3:
+			Cursor::SetColor(Cursor::green);
+			break;
+		case Keyboard::n4:
+			Cursor::SetColor(Cursor::cyan);
+			break;
+		case Keyboard::n5:
+			Cursor::SetColor(Cursor::red);
+			break;
+		case Keyboard::n6:
+			Cursor::SetColor(Cursor::magenta);
+			break;
+		case Keyboard::n7:
+			Cursor::SetColor(Cursor::brown);
+			break;
+		case Keyboard::n8:
+			Cursor::SetColor(Cursor::lightgray);
+			break;
+		case Keyboard::n9:
+			Cursor::SetColor(Cursor::lightblue);
+			break;
+		case Keyboard::n0:
+			Cursor::SetColor(Cursor::lightgreen);
+			break;
+		case Keyboard::q:
+			Cursor::SetColor(Cursor::lightcyan);
+			break;
+		case Keyboard::w:
+			Cursor::SetColor(Cursor::lightred);
+			break;
+		case Keyboard::e:
+			Cursor::SetColor(Cursor::lightmagenta);
+			break;
+		case Keyboard::r:
+			Cursor::SetColor(Cursor::yellow);
+			break;
+		case Keyboard::t:
+			Cursor::SetColor(Cursor::white);
+			break;
 
 
-	default:
-		
-		break;
+		default:
+
+			break;
+		}
 	}
 }
 
@@ -118,10 +106,11 @@ while(programRunning)
 PictureEditor::PictureEditor()
 {
 	//textmode(C4350);
-	windowWidth = 80;
+	textcolor(WHITE);
+	windowWidth = 120;
 	windowHeight = 30;
 	instructionWidth = 44;
-	layout = instructionLeft;
+	layout = instructionRight;
 	programRunning = true;
 	switch (layout)
 	{
@@ -154,11 +143,11 @@ void PictureEditor::DrawInstruction()
 		}
 		break;
 	case instructionRight:
-		x = instructionWidth + 1;
-		for (int i = 0; i <= 28; ++i)
+		x = windowWidth - instructionWidth;
+		for (int i = 0; i < windowHeight; ++i)
 		{
-			gotoxy(x, y + i);
-			cputs("\186");
+			gotoxy(x-1, y + i);
+			putch(186);
 		}
 		break;
 	default:

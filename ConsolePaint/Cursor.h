@@ -16,12 +16,16 @@ public:
 
 	~Cursor();
 	static void MoveTo(int, int);
+	static void UpdatePosition();
 	static void Move(Direction);
 	static void SetPosition();
-
+	static void SetColor(Color);
+	static void SetDefault();
 private:
 	static int positionX;
 	static int positionY;
+	static int workspacePositionX;
+	static int workspacePositionY;
 	static int minX;
 	static int minY;
 	static int maxX;

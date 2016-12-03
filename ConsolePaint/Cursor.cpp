@@ -4,6 +4,7 @@
 #include <cstdio>
 #include "Keyboard.h"
 #include <stdlib.h>
+#include "Workspace.h"
 
 int Cursor::positionX;
 int Cursor::positionY;
@@ -17,7 +18,7 @@ Cursor::Color Cursor::color;
 bool Cursor::isDrawing;
 
 
-Cursor::Cursor(int minX, int minY, int maxX, int maxY)
+Cursor::Cursor(Workspace * workspace, int minX, int minY, int maxX, int maxY)
 {
 	this->minX = minX;
 	this->minY = minY;
@@ -87,6 +88,7 @@ void Cursor::Move(Direction direction)
 	gotoxy(positionX, positionY);
 	UpdatePosition();
 	SetPosition();
+
 }
 
 void Cursor::SetPosition()
@@ -105,14 +107,7 @@ void Cursor::SetPosition()
 void Cursor::SetColor(Color Cursorcolor)
 {
 	color = Cursorcolor;
-	if (isDrawing)
-	{
-		gotoxy(positionX, positionY);
-		textcolor(color);
-		textbackground(color);
-		putch(219);
-		SetDefault();
-	}
+	SetPosition();
 }
 
 void Cursor::SetDefault()

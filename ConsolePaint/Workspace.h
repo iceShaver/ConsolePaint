@@ -4,7 +4,8 @@
 class Workspace
 {
 private:
-	int minX, minY, maxX, maxY;
+	int minX, minY, maxX, maxY, width, height;
+	short ** picture;
 public:
 	char* name;
 	Workspace(int, char*, int, int);

@@ -1,6 +1,8 @@
 #pragma once
 
 
+class Workspace;
+
 class Cursor
 {
 public:
@@ -12,7 +14,7 @@ public:
 	};
 	static Color color;
 
-	Cursor(int, int, int, int);
+	Cursor(Workspace*, int, int, int, int);
 
 	~Cursor();
 	static void Toggle();

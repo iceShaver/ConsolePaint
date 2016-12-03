@@ -7,7 +7,14 @@
 
 Workspace::Workspace(int x0, char* name, int width, int height)
 {
+	this->width = width;
+	this->height = height;
 	this->name = name;
+	this->picture = new short*[width];
+	for (int i = 0; i < width; ++i)
+	{
+		picture[i] = new short[height];
+	}
 	clrscr();
 	minX = x0 + 1;
 	minY = 3 + 1;
@@ -60,7 +67,7 @@ Workspace::Workspace(int x0, char* name, int width, int height)
 	gotoxy(minX, 2);
 	while (wherex() < maxX)
 		putch('_');
-	Cursor cursor(minX, minY, maxX, maxY);
+	Cursor cursor(this, minX, minY, maxX, maxY);
 	
 
 }

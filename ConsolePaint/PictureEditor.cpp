@@ -28,13 +28,14 @@ void PictureEditor::Tasker()
 		case Keyboard::rightArrow:
 			Cursor::Move(Cursor::right);
 			break;
-		case Keyboard::space: 
+		case Keyboard::space:
 			Cursor::Toggle();
 			break;
 		case Keyboard::backspace: break;
 		case Keyboard::enter: break;
 		case Keyboard::n:
 		{
+
 			Workspace workspace(workpaceX0Position,
 				Keyboard::Input("Podaj nazwe: "),
 				Keyboard::InputNumber("Podaj szerokosc: "),
@@ -93,8 +94,12 @@ void PictureEditor::Tasker()
 		case Keyboard::t:
 			Cursor::SetColor(Cursor::white);
 			break;
-
-
+		case Keyboard::i: {
+			Workspace workspace(workpaceX0Position, File::Read("obrazek.txt"));
+			DrawInstruction();
+			Cursor::SetPosition();
+			break;
+		}
 		default:
 
 			break;
@@ -110,7 +115,7 @@ PictureEditor::PictureEditor()
 	windowWidth = 120;
 	windowHeight = 30;
 	instructionWidth = 44;
-	layout = instructionRight;
+	layout = instructionLeft;
 	programRunning = true;
 	switch (layout)
 	{
@@ -148,7 +153,7 @@ void PictureEditor::DrawInstruction()
 		x = windowWidth - instructionWidth;
 		for (int i = 0; i < windowHeight; ++i)
 		{
-			gotoxy(x-1, y + i);
+			gotoxy(x - 1, y + i);
 			putch(186);
 		}
 		break;

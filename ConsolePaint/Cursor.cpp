@@ -58,8 +58,8 @@ void Cursor::MoveTo(int positionX, int positionY)
 
 void Cursor::UpdatePosition()
 {
-	workspacePositionX = wherex() - minX;
-	workspacePositionY = wherey() - minY;
+	workspacePositionX = wherex() - minX + 1;
+	workspacePositionY = wherey() - minY + 1;
 	gotoxy(PictureEditor::instructionX0Position, PictureEditor::windowHeight);
 	cputs("       ");
 	gotoxy(PictureEditor::instructionX0Position, PictureEditor::windowHeight);

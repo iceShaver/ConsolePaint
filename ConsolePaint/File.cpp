@@ -33,17 +33,18 @@ Picture File::Read(char* fileName)
 
 	char tmp[32];
 	fscanf(file, "%s", tmp);
-	Picture picture;
-	picture.name = tmp;
-	fscanf(file, "%d %d", &picture.width, &picture.height);
-	short **tmparray = new short*[picture.width];
-	for (int i = 0; i < picture.width; ++i)
+	Picture *picture = new Picture;
+	
+	picture->name = tmp;
+	fscanf(file, "%d %d", &picture->width, &picture->height);
+	short **tmparray = new short*[picture->height];
+	for (int i = 0; i < picture->height; ++i)
 	{
-		tmparray[i] = new short[picture.height];
+		tmparray[i] = new short[picture->width];
 	}
-	for (int i = 0; i < picture.width; ++i)
+	for (int i = 0; i < picture->height; ++i)
 	{
-		for (int j = 0; j < picture.height; ++j)
+		for (int j = 0; j < picture->width; ++j)
 		{
 			
 			fscanf(file, "%d", &tmparray[i][j]);
@@ -53,9 +54,9 @@ Picture File::Read(char* fileName)
 			//cputs(tmp);
 		}
 	}
-	picture.content = tmparray;
+	picture->content = tmparray;
 	fclose(file);
-	return picture;
+	return *picture;
 }
 
 void File::Save(Workspace)

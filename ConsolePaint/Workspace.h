@@ -15,7 +15,7 @@ private:
 	int minX, minY, maxX, maxY, width, height, x0;
 	short ** picture;
 public:
-	const char* name;
+	char* name;
 	Workspace(int, char*, int, int);
 	Workspace(int, Picture);
 	void DrawFrame();

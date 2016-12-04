@@ -2,12 +2,13 @@
 #include "conio2.h"
 #include "PictureEditor.h"
 #include "Cursor.h"
+#include <cstring>
 
 Workspace::Workspace(int x0, char* name, int width, int height)
 {
 	this->x0 = x0;
-	this->width = width-1;
-	this->height = height-1;
+	this->width = width - 1;
+	this->height = height - 1;
 	this->name = name;
 	this->picture = new short*[this->width];
 	for (int i = 0; i < this->width; ++i)
@@ -20,7 +21,7 @@ Workspace::Workspace(int x0, char* name, int width, int height)
 	maxX = minX + this->width;
 	maxY = minY + this->height;
 
-	
+
 	gotoxy(x0, 1);
 	textbackground(GREEN);
 	cputs(this->name);
@@ -37,20 +38,17 @@ Workspace::Workspace(int x0, char* name, int width, int height)
 Workspace::Workspace(int x0, Picture picture)
 {
 	this->x0 = x0;
-	this->width = picture.width - 1;
-	this->height = picture.height - 1;
+	this->width = picture.width;
+	this->height = picture.height;
 	this->name = picture.name;
-	/*this->picture = new short*[this->width];
-	for (int i = 0; i < this->width; ++i)
-	{
-		picture[i] = new short[height];
-	}*/
-	clrscr();
+	this->picture = picture.content;
 	minX = x0 + 1;
 	minY = 3 + 1;
-	maxX = minX + this->width;
-	maxY = minY + this->height;
-
+	maxX = minX + this->width - 1;
+	maxY = minY + this->height - 1;
+	this->name = new char[32];
+	strcpy(this->name, picture.name);
+	clrscr();
 
 	gotoxy(x0, 1);
 	textbackground(GREEN);
@@ -62,17 +60,18 @@ Workspace::Workspace(int x0, Picture picture)
 		putch('_');
 	Cursor cursor(this, minX, minY, maxX, maxY);
 	DrawFrame();
-	for (int i = 0; i < picture.width; ++i)
+	for (int i = 0; i < picture.height; ++i)
 	{
-		for (int j = 0; j < picture.height; ++j)
+		for (int j = 0; j < picture.width; ++j)
 		{
 			gotoxy(minX + j, minY + i);
 			textcolor(picture.content[i][j]);
 			textbackground(picture.content[i][j]);
 			putch(219);
-			
 		}
 	}
+	delete[] picture.content;
+	//delete picture;
 	Cursor::SetDefault();
 
 }

@@ -1,6 +1,5 @@
 #include <stdlib.h>
 #include "conio2.h"
-#include "console.cpp"
 #include "PictureEditor.h"
 #include "Cursor.h"
 #include "Keyboard.h"

@@ -94,8 +94,8 @@ void PictureEditor::Tasker()
 		case Keyboard::t:
 			Cursor::SetColor(Cursor::white);
 			break;
-		case Keyboard::i: {
-			Workspace workspace(workpaceX0Position, File::Read("obrazek.txt"));
+		case Keyboard::i: {		
+			Workspace *workspace = new Workspace(workpaceX0Position, File::Read("obrazek.txt"));
 			DrawInstruction();
 			Cursor::SetPosition();
 			break;

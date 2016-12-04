@@ -2,18 +2,19 @@
 #include "conio2.h"
 #include "PictureEditor.h"
 #include "Cursor.h"
-#include <cstring>
+#include <string.h>
 Workspace::Workspace(int x0, char* name, int width, int height)
 {
 	this->x0 = x0;
 	this->width = width;
 	this->height = height;
 	strcpy(this->name, name);
-	//this->name = name;
-	this->picture = new short*[this->width];
-	for (int i = 0; i < this->width; ++i)
+	//if (picture != nullptr)
+	//	delete picture;
+	this->picture = new short*[this->height];
+	for (int i = 0; i < this->height; ++i)
 	{
-		picture[i] = new short[height];
+		picture[i] = new short[width];
 	}
 	for (int i = 0; i < height; ++i)
 	{
@@ -24,11 +25,9 @@ Workspace::Workspace(int x0, char* name, int width, int height)
 	}
 	clrscr();
 	minX = x0 + 1;
-	minY = 3 + 1;
+	minY = 4;
 	maxX = minX + this->width-1;
 	maxY = minY + this->height-1;
-
-
 	gotoxy(x0, 1);
 	textbackground(GREEN);
 	cputs(this->name);
@@ -39,7 +38,6 @@ Workspace::Workspace(int x0, char* name, int width, int height)
 		putch('_');
 	Cursor cursor(this, minX, minY, maxX, maxY);
 	DrawFrame();
-
 }
 
 Workspace::Workspace(int x0, Picture picture)
@@ -52,7 +50,6 @@ Workspace::Workspace(int x0, Picture picture)
 		PictureEditor::workspaceInitialized = false;
 		return;
 	}
-
 	this->x0 = x0;
 	this->width = picture.width;
 	this->height = picture.height;
@@ -73,8 +70,6 @@ Workspace::Workspace(int x0, Picture picture)
 		putch('_');
 	Cursor cursor(this, minX, minY, maxX, maxY);
 	DrawFrame();
-
-
 	for (int i = 0; i < height; ++i)
 	{
 		for (int j = 0; j < width; ++j)
@@ -86,14 +81,14 @@ Workspace::Workspace(int x0, Picture picture)
 		}
 	}
 	this->picture = picture.content;
-	////delete picture;
+	//delete picture;
 	Cursor::SetDefault();
 
 }
 
 void Workspace::DrawFrame()
 {
-	//Rysowanie obramowania poziomego
+	//Horizontal lines
 	for (int i = x0; i <= maxX + 1; ++i)
 	{
 		if (i == x0)
@@ -119,7 +114,7 @@ void Workspace::DrawFrame()
 		}
 
 	}
-	//Rysowanie obramowana pionowego
+	//Vertical lines
 	for (int i = minY; i <= maxY; ++i)
 	{
 
@@ -127,22 +122,11 @@ void Workspace::DrawFrame()
 		putch(186);
 		gotoxy(maxX + 1, i);
 		putch(186);
-
-
-
-
 	}
 }
 
 Workspace::~Workspace()
 {
-}
-
-void Workspace::draw()
-{
-
-
-
 }
 
 void Workspace::UpdateArray(int position_x, int position_y)

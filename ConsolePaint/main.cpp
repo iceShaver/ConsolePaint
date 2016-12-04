@@ -7,11 +7,9 @@
 stale, na przyklad po to, aby wyeliminowac z programu
 wartosci numeryczne umieszczajac w ich miejsce
 dobrze dobrane identyfikatory */
-extern  PictureEditor::Position position;
 int main()
 {
-
+	settitle("kamil krolikowski 165253");
 	PictureEditor pictureEditor;
-
 	return 0;
 }

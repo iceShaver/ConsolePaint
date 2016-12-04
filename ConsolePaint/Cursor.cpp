@@ -18,6 +18,7 @@ Cursor::Color Cursor::color;
 bool Cursor::isDrawing;
 Workspace* Cursor::w;
 
+//Cursor constructor
 Cursor::Cursor(Workspace * workspace, int minX, int minY, int maxX, int maxY)
 {
 	w = NULL;
@@ -32,9 +33,7 @@ Cursor::Cursor(Workspace * workspace, int minX, int minY, int maxX, int maxY)
 	workspacePositionY = 0;
 	isDrawing = false;
 	SetPosition();
-	//workspace->UpdateArray(positionX, positionY);
 	UpdatePosition();
-
 }
 
 
@@ -42,6 +41,7 @@ Cursor::~Cursor()
 {
 }
 
+//Toggle draw/not-draw
 void Cursor::Toggle()
 {
 	if (isDrawing)
@@ -52,29 +52,22 @@ void Cursor::Toggle()
 		UpdatePosition();
 		SetPosition();
 	}
-
 }
 
-void Cursor::MoveTo(int positionX, int positionY)
-{
-	gotoxy(positionX, positionY);
-}
-
+//Update and display coursor position
 void Cursor::UpdatePosition()
 {
 	workspacePositionX = wherex() - minX + 1;
 	workspacePositionY = wherey() - minY + 1;
-	gotoxy(PictureEditor::instructionX0Position, PictureEditor::windowHeight);
+	gotoxy(PictureEditor::instructionX0Position, PictureEditor::WINDOW_HEIGHT);
 	cputs("       ");
-	gotoxy(PictureEditor::instructionX0Position, PictureEditor::windowHeight);
-
+	gotoxy(PictureEditor::instructionX0Position, PictureEditor::WINDOW_HEIGHT);
 	putch('(');
 	char str[3];
-	_itoa_s(workspacePositionX, str, 10);
+	_itoa_s(workspacePositionX, str, DECIMAL_SYSTEM);
 	cputs(str);
 	putch(',');
-	_itoa_s(workspacePositionY, str, 10);
-
+	_itoa_s(workspacePositionY, str, DECIMAL_SYSTEM);
 	cputs(str);
 	putch(')');
 }
@@ -91,33 +84,32 @@ void Cursor::Move(Direction direction)
 		else if (direction == right && positionX < maxX)
 			positionX++;
 		gotoxy(positionX, positionY);
-		if (isDrawing)
-
-			UpdatePosition();
+		UpdatePosition();
 		SetPosition();
 	}
 }
 
+//Put pixel on the picture and the array
 void Cursor::SetPosition()
 {
 	gotoxy(positionX, positionY);
-
 	if (isDrawing)
 	{
 		textcolor(color);
 		textbackground(color);
-		putch(219);
+		putch(PIXEL);
 		SetDefault();
 		w->UpdateArray(workspacePositionX, workspacePositionY);
 	}
-
 }
 
+//Set color of the cursor
 void Cursor::SetColor(Color Cursorcolor)
 {
 	color = Cursorcolor;
 	SetPosition();
 }
+
 
 void Cursor::SetDefault()
 {

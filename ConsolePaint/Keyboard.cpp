@@ -98,15 +98,16 @@ Keyboard::Key Keyboard::getKey()
 	}
 }
 
+//Get character for picture name
 char Keyboard::getChar()
 {
 	char character;
 	while (true) {
 		character = getch();
-		if (character == 13)
+		if (character == ENTER)
 			return '\0';
-		if (character == 8)
-			return 8;
+		if (character == BACKSPACE)
+			return BACKSPACE;
 		if (character == 0)
 			while (kbhit())
 				getch();
@@ -117,25 +118,24 @@ char Keyboard::getChar()
 			character == 0x2e)
 			return character;
 	}
-
-
 }
 
-
+//Display input field with given command
 char* Keyboard::Input(char* command)
 {
 	clrscr();
-	int maxLength = 32;
 	char character;
 	int position = wherex();
-	char* fileName = new char[maxLength + 1];
+	char* fileName = new char[MAX_FILENAME_LENGTH + 1];
 	gotoxy(1, 1);
 	cputs(command);
 	int i = 0;
 	while (true)
 	{
 		character = Keyboard::getChar();
-		if (character == 8)
+
+		//Delete last typed character
+		if (character == BACKSPACE)
 		{
 			if (i > 0) {
 				gotoxy(wherex() - 1, wherey());
@@ -145,7 +145,8 @@ char* Keyboard::Input(char* command)
 			}
 			continue;
 		}
-		if (i < maxLength)
+
+		if (i < MAX_FILENAME_LENGTH)
 		{
 			fileName[i] = character;
 			if (character == '\0')
@@ -158,13 +159,13 @@ char* Keyboard::Input(char* command)
 			fileName[i] = character;
 			if (character == '\0')
 				break;
-
 		}
 
 	}
 	return fileName;
 }
 
+//Display input field with given command (only integer numbers)
 int Keyboard::InputNumber(char* command)
 {
 	char *str = Input(command);

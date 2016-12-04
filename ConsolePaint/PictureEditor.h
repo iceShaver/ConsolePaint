@@ -5,9 +5,9 @@ class PictureEditor
 {
 public:
 	enum Position {instructionLeft, instructionRight};
-	static int windowWidth;
-	static int windowHeight;
-	static int instructionWidth;
+	const static int WINDOW_WIDTH = 120;
+	const static int WINDOW_HEIGHT = 30;
+	const static int INSTRUCTION_WIDTH = 44;
 	static int instructionX0Position;
 	class Workspace* workspace;
 	static bool workspaceInitialized;
@@ -15,12 +15,9 @@ public:
 	void DrawInstruction();
 	void Tasker();
 private:
-
 	int workpaceX0Position;
 	Position layout;
 	bool programRunning;
-
-	//void loadModule();
 	
 	
 };

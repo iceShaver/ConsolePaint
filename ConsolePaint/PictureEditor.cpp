@@ -7,9 +7,6 @@
 #include "File.h"
 #include <stdlib.h>
 
-int PictureEditor::windowHeight;
-int PictureEditor::windowWidth;
-int PictureEditor::instructionWidth;
 int PictureEditor::instructionX0Position;
 bool PictureEditor::workspaceInitialized;
 Workspace* workspace;
@@ -39,7 +36,6 @@ void PictureEditor::Tasker()
 		case Keyboard::enter: break;
 		case Keyboard::n:
 		{
-			//delete workspace;
 			/*if (workspaceInitialized) {
 				delete workspace;
 			}*/
@@ -109,8 +105,9 @@ void PictureEditor::Tasker()
 			//if (workspaceInitialized) {
 			//	delete workspace;
 			//}
-			workspace = new Workspace(workpaceX0Position, File::Read("obrazek.txt"));
 			workspaceInitialized = true;
+
+			workspace = new Workspace(workpaceX0Position, File::Read("obrazek.txt"));
 			DrawInstruction();
 			Cursor::SetPosition();
 			break;
@@ -120,12 +117,11 @@ void PictureEditor::Tasker()
 			//	delete workspace;
 			//}
 			workspaceInitialized = true;
-			workspace = new Workspace(workpaceX0Position, File::Read(Keyboard::Input("Podaj nazwe pliku do odczytania: ")));
 
+			workspace = new Workspace(workpaceX0Position, File::Read(Keyboard::Input("Podaj nazwe pliku do odczytania: ")));
 			DrawInstruction();
 			Cursor::SetPosition();
 			break;
-
 		case Keyboard::s:
 			if (workspaceInitialized)
 				File::Save(this->workspace);
@@ -138,26 +134,23 @@ void PictureEditor::Tasker()
 
 PictureEditor::PictureEditor()
 {
+	layout = instructionLeft;
 	workspaceInitialized = false;
 	//textmode(C4350);
 	textcolor(WHITE);
-	windowWidth = 120;
-	windowHeight = 30;
-	instructionWidth = 44;
-	layout = instructionLeft;
 	programRunning = true;
 	switch (layout)
 	{
 	case instructionLeft:
-		workpaceX0Position = instructionWidth + 2;
+		workpaceX0Position = INSTRUCTION_WIDTH + 2;
 		instructionX0Position = 1;
 		break;
 	case instructionRight:
 		workpaceX0Position = 1;
-		instructionX0Position = windowWidth - instructionWidth;
+		instructionX0Position = WINDOW_WIDTH - INSTRUCTION_WIDTH;
 		break;
 	default:
-		workpaceX0Position = instructionWidth + 1;
+		workpaceX0Position = INSTRUCTION_WIDTH + 1;
 		break;
 	}
 	DrawInstruction();
@@ -172,15 +165,15 @@ void PictureEditor::DrawInstruction()
 	{
 	case instructionLeft:
 		x = 1;
-		for (int i = 0; i < windowHeight; ++i)
+		for (int i = 0; i < WINDOW_HEIGHT; ++i)
 		{
-			gotoxy(x + instructionWidth, y + i);
+			gotoxy(x + INSTRUCTION_WIDTH, y + i);
 			putch(186);
 		}
 		break;
 	case instructionRight:
-		x = windowWidth - instructionWidth;
-		for (int i = 0; i < windowHeight; ++i)
+		x = WINDOW_WIDTH - INSTRUCTION_WIDTH;
+		for (int i = 0; i < WINDOW_HEIGHT; ++i)
 		{
 			gotoxy(x - 1, y + i);
 			putch(186);
@@ -190,11 +183,13 @@ void PictureEditor::DrawInstruction()
 		x = 1;
 		break;
 	}
-
 	gotoxy(x, y);
 	cputs("Instrukcja:");
 	gotoxy(x, ++y);
+	if (!workspaceInitialized)
+		textcolor(DARKGRAY);
 	cputs("Strzalki - poruszanie");
+	textcolor(WHITE);
 	gotoxy(x, ++y);
 	cputs("ESC - wyjscie");
 	gotoxy(x, ++y);
@@ -202,9 +197,12 @@ void PictureEditor::DrawInstruction()
 	gotoxy(x, ++y);
 	cputs("o - wczytaj podany plik");
 	gotoxy(x, ++y);
-	cputs("n - nowy plik");
+	cputs("n - nowy");
+	if (!workspaceInitialized)
+		textcolor(DARKGRAY);
 	gotoxy(x, ++y);
 	cputs("s - zapisz");
+	textcolor(WHITE);
 	gotoxy(x, ++y);
 	textbackground(BLACK);
 	cputs("1");
@@ -221,12 +219,15 @@ void PictureEditor::DrawInstruction()
 	textbackground(BROWN);
 	cputs("7");
 	textbackground(LIGHTGRAY);
+	textcolor(BLACK);
 	cputs("8");
+	textcolor(WHITE);
 	textbackground(DARKGRAY);
 	cputs("9");
 	textbackground(LIGHTBLUE);
 	cputs("0");
 	textbackground(LIGHTGREEN);
+	textcolor(BLACK);
 	cputs("q");
 	textbackground(LIGHTCYAN);
 	cputs("w");
@@ -234,21 +235,13 @@ void PictureEditor::DrawInstruction()
 	cputs("e");
 	textbackground(LIGHTMAGENTA);
 	cputs("r");
-	textcolor(BLACK);
 	textbackground(YELLOW);
 	cputs("t");
 	textbackground(WHITE);
 	cputs("y");
-	gotoxy(x, ++y);
 	textbackground(BLACK);
 	textcolor(WHITE);
-	cputs("1234567890qwerty - wybor koloru");
-
-	gotoxy(x, ++y);
-	cputs("backspace - cofnij");
-
-	//Cursor::SetPosition();
-
+	cputs(" - wybor koloru");
 }
 
 

@@ -24,6 +24,7 @@
     <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="File.cpp" />
     <ClCompile Include="Keyboard.cpp" />
+    <ClCompile Include="List.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PictureEditor.cpp" />
     <ClCompile Include="Workspace.cpp" />
@@ -34,6 +35,7 @@
     <ClInclude Include="File.h" />
     <ClInclude Include="headers.h" />
     <ClInclude Include="Keyboard.h" />
+    <ClInclude Include="List.h" />
     <ClInclude Include="PictureEditor.h" />
     <ClInclude Include="Workspace.h" />
   </ItemGroup>

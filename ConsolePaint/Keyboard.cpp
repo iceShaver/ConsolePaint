@@ -112,7 +112,9 @@ char Keyboard::getChar()
 				getch();
 		else if ((character >= 0x30 && character <= 0x39) ||
 			(character >= 0x61 && character <= 0x7a) ||
-			(character >= 0x41 && character <= 0x5a))
+			(character >= 0x41 && character <= 0x5a) ||
+			character == 0x2d || character == 0x5f ||
+			character == 0x2e)
 			return character;
 	}
 
@@ -150,12 +152,13 @@ char* Keyboard::Input(char* command)
 				break;
 			putch(character);
 			i++;
-		}else
+		}
+		else
 		{
 			fileName[i] = character;
 			if (character == '\0')
 				break;
-			
+
 		}
 
 	}

@@ -16,10 +16,12 @@ int Cursor::maxX;
 int Cursor::maxY;
 Cursor::Color Cursor::color;
 bool Cursor::isDrawing;
-
+Workspace* Cursor::w;
 
 Cursor::Cursor(Workspace * workspace, int minX, int minY, int maxX, int maxY)
 {
+	w = NULL;
+	this->w = workspace;
 	this->minX = minX;
 	this->minY = minY;
 	this->maxX = maxX;
@@ -30,6 +32,7 @@ Cursor::Cursor(Workspace * workspace, int minX, int minY, int maxX, int maxY)
 	workspacePositionY = 0;
 	isDrawing = false;
 	SetPosition();
+	//workspace->UpdateArray(positionX, positionY);
 	UpdatePosition();
 
 }
@@ -46,6 +49,7 @@ void Cursor::Toggle()
 	else
 	{
 		isDrawing = true;
+		UpdatePosition();
 		SetPosition();
 	}
 
@@ -77,29 +81,34 @@ void Cursor::UpdatePosition()
 
 void Cursor::Move(Direction direction)
 {
-	if (direction == up && positionY > minY)
-		positionY--;
-	else if (direction == down && positionY < maxY)
-		positionY++;
-	else if (direction == left && positionX > minX)
-		positionX--;
-	else if (direction == right && positionX < maxX)
-		positionX++;
-	gotoxy(positionX, positionY);
-	UpdatePosition();
-	SetPosition();
+	if (PictureEditor::workspaceInitialized) {
+		if (direction == up && positionY > minY)
+			positionY--;
+		else if (direction == down && positionY < maxY)
+			positionY++;
+		else if (direction == left && positionX > minX)
+			positionX--;
+		else if (direction == right && positionX < maxX)
+			positionX++;
+		gotoxy(positionX, positionY);
+		if (isDrawing)
 
+			UpdatePosition();
+		SetPosition();
+	}
 }
 
 void Cursor::SetPosition()
 {
 	gotoxy(positionX, positionY);
+
 	if (isDrawing)
 	{
 		textcolor(color);
 		textbackground(color);
 		putch(219);
 		SetDefault();
+		w->UpdateArray(workspacePositionX, workspacePositionY);
 	}
 
 }

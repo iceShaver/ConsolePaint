@@ -10,6 +10,6 @@ public:
 	~File();
 	static char* CreateNewFile();
 	static Picture Read(char* file);
-	static void Save(Workspace);
+	static int Save(Workspace*);
 };
 

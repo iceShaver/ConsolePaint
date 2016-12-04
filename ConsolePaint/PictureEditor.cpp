@@ -5,11 +5,15 @@
 #include "Cursor.h"
 #include "Workspace.h"
 #include "File.h"
+#include <stdlib.h>
 
 int PictureEditor::windowHeight;
 int PictureEditor::windowWidth;
 int PictureEditor::instructionWidth;
 int PictureEditor::instructionX0Position;
+bool PictureEditor::workspaceInitialized;
+Workspace* workspace;
+
 void PictureEditor::Tasker()
 {
 	while (programRunning) {
@@ -35,11 +39,15 @@ void PictureEditor::Tasker()
 		case Keyboard::enter: break;
 		case Keyboard::n:
 		{
-
-			Workspace workspace(workpaceX0Position,
+			//delete workspace;
+			/*if (workspaceInitialized) {
+				delete workspace;
+			}*/
+			workspace = new Workspace(workpaceX0Position,
 				Keyboard::Input("Podaj nazwe: "),
 				Keyboard::InputNumber("Podaj szerokosc: "),
 				Keyboard::InputNumber("Podaj wysokosc: "));
+			workspaceInitialized = true;
 			DrawInstruction();
 			Cursor::SetPosition();
 			break;
@@ -74,42 +82,63 @@ void PictureEditor::Tasker()
 			Cursor::SetColor(Cursor::lightgray);
 			break;
 		case Keyboard::n9:
-			Cursor::SetColor(Cursor::lightblue);
+			Cursor::SetColor(Cursor::darkgray);
 			break;
 		case Keyboard::n0:
-			Cursor::SetColor(Cursor::lightgreen);
+			Cursor::SetColor(Cursor::lightblue);
 			break;
 		case Keyboard::q:
-			Cursor::SetColor(Cursor::lightcyan);
+			Cursor::SetColor(Cursor::lightgreen);
 			break;
 		case Keyboard::w:
-			Cursor::SetColor(Cursor::lightred);
+			Cursor::SetColor(Cursor::lightcyan);
 			break;
 		case Keyboard::e:
-			Cursor::SetColor(Cursor::lightmagenta);
+			Cursor::SetColor(Cursor::lightred);
 			break;
 		case Keyboard::r:
-			Cursor::SetColor(Cursor::yellow);
+			Cursor::SetColor(Cursor::lightmagenta);
 			break;
 		case Keyboard::t:
+			Cursor::SetColor(Cursor::yellow);
+			break;
+		case Keyboard::y:
 			Cursor::SetColor(Cursor::white);
 			break;
-		case Keyboard::i: {		
-			Workspace *workspace = new Workspace(workpaceX0Position, File::Read("obrazek.txt"));
+		case Keyboard::i: {
+			//if (workspaceInitialized) {
+			//	delete workspace;
+			//}
+			workspace = new Workspace(workpaceX0Position, File::Read("obrazek.txt"));
+			workspaceInitialized = true;
 			DrawInstruction();
 			Cursor::SetPosition();
 			break;
 		}
-		default:
+		case Keyboard::o:
+			//if (workspaceInitialized) {
+			//	delete workspace;
+			//}
+			workspaceInitialized = true;
+			workspace = new Workspace(workpaceX0Position, File::Read(Keyboard::Input("Podaj nazwe pliku do odczytania: ")));
 
+			DrawInstruction();
+			Cursor::SetPosition();
+			break;
+
+		case Keyboard::s:
+			if (workspaceInitialized)
+				File::Save(this->workspace);
+			break;
+		default:
 			break;
 		}
 	}
 }
 
-
 PictureEditor::PictureEditor()
 {
+	workspaceInitialized = false;
 	//textmode(C4350);
 	textcolor(WHITE);
 	windowWidth = 120;
@@ -177,23 +206,47 @@ void PictureEditor::DrawInstruction()
 	gotoxy(x, ++y);
 	cputs("s - zapisz");
 	gotoxy(x, ++y);
-	cputs("l - rysuj linie");
+	textbackground(BLACK);
+	cputs("1");
+	textbackground(BLUE);
+	cputs("2");
+	textbackground(GREEN);
+	cputs("3");
+	textbackground(CYAN);
+	cputs("4");
+	textbackground(RED);
+	cputs("5");
+	textbackground(MAGENTA);
+	cputs("6");
+	textbackground(BROWN);
+	cputs("7");
+	textbackground(LIGHTGRAY);
+	cputs("8");
+	textbackground(DARKGRAY);
+	cputs("9");
+	textbackground(LIGHTBLUE);
+	cputs("0");
+	textbackground(LIGHTGREEN);
+	cputs("q");
+	textbackground(LIGHTCYAN);
+	cputs("w");
+	textbackground(LIGHTRED);
+	cputs("e");
+	textbackground(LIGHTMAGENTA);
+	cputs("r");
+	textcolor(BLACK);
+	textbackground(YELLOW);
+	cputs("t");
+	textbackground(WHITE);
+	cputs("y");
 	gotoxy(x, ++y);
-	cputs("k - rysuj prostokat");
-	gotoxy(x, ++y);
+	textbackground(BLACK);
+	textcolor(WHITE);
 	cputs("1234567890qwerty - wybor koloru");
-	gotoxy(x, ++y);
-	cputs("ctrl+strzalki - przewijanie ekranu");
+
 	gotoxy(x, ++y);
 	cputs("backspace - cofnij");
-	gotoxy(x, ++y);
-	cputs("alt+strzalki - zaznacz obszar do kopiowania");
-	gotoxy(x, ++y);
-	cputs("c - kopiuj zaznaczony fragment do schowka");
-	gotoxy(x, ++y);
-	cputs("p - wklej fragment ze schowka");
-	gotoxy(x, ++y);
-	cputs("f - wypelnianie");
+
 	//Cursor::SetPosition();
 
 }

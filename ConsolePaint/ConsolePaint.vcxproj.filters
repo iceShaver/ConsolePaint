@@ -21,9 +21,6 @@
     <ClCompile Include="conio2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="console.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="PictureEditor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -45,9 +42,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="conio2.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="headers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PictureEditor.h">

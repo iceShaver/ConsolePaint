@@ -20,7 +20,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="conio2.cpp" />
-    <ClCompile Include="console.cpp" />
     <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="File.cpp" />
     <ClCompile Include="Keyboard.cpp" />
@@ -33,7 +32,6 @@
     <ClInclude Include="conio2.h" />
     <ClInclude Include="Cursor.h" />
     <ClInclude Include="File.h" />
-    <ClInclude Include="headers.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="PictureEditor.h" />

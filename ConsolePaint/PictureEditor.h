@@ -1,4 +1,5 @@
 #pragma once
+#include "Workspace.h"
 
 class PictureEditor
 {
@@ -8,6 +9,8 @@ public:
 	static int windowHeight;
 	static int instructionWidth;
 	static int instructionX0Position;
+	class Workspace* workspace;
+	static bool workspaceInitialized;
 	PictureEditor();
 	void DrawInstruction();
 	void Tasker();

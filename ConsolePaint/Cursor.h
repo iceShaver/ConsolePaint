@@ -34,6 +34,7 @@ private:
 	static int maxX;
 	static int maxY;
 	static bool isDrawing;
+	static class Workspace* w;
 
 };
 
